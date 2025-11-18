@@ -4,7 +4,9 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_absolute_error
 
-print("# All the packages were imported with success!")
+print("#" * 48)
+print("# All the packages were imported with success! #")
+print("#" * 48, "\n")
 
 def main():
 
@@ -30,21 +32,27 @@ def main():
 
     # pd.set_option('display.max_columns', None)
     pd.set_option('display.max_rows', None)
-    print(df)
-    print(X)
-    print(y)
+    # print(df)
+    # print(X)
+    # print(y)
 
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+    #print(X_train, X_test, y_train, y_test)
 
     modelo = RandomForestRegressor(n_estimators=300)
     modelo.fit(X_train, y_train)
 
     previsoes = modelo.predict(X_test)
+    # print(previsoes)
     erro = mean_absolute_error(y_test, previsoes)
 
-    print("MAE:", erro)
+    print("Mean Absolute Error:", erro)
 
-    print("# The program was executed successfully!")
+    print()
+    print("#" * 48)
+    print("# The program was executed successfully!       #")
+    print("#" * 48)
 
 
 
