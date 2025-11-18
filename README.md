@@ -3,6 +3,15 @@ Artificial intelligence-based data organization and modeling for arboviral epide
 
 <hr>
 
+# Instalando Dependências
+
+Apenas executar o comando no terminal:
+
+```bash
+pip install -r requirements.txt
+``` 
+
+
 # Campos da tabela
 
 | **Name**                   | **Description**                                                                                    |
