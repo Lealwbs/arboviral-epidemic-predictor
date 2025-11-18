@@ -3,29 +3,29 @@ Artificial intelligence-based data organization and modeling for arboviral epide
 
 <hr>
 
-# Campos CSV
-| **Nome Melhorado**    | **Observações / Significado**                                                         |
-| --------------------- | ------------------------------------------------------------------------------------- |
-| id_registro           | Identificador único da linha; chave primária da tabela.                               |
-| ano                   | Ano da observação (2000–2025).                                                        |
-| mes                   | Mês da observação (1–12).                                                             |
-| codigo_municipio_ibge | Código IBGE oficial do município (7 dígitos).                                         |
-| nome_municipio        | Nome do município correspondente ao código IBGE. Pode ser mantido em tabela auxiliar. |
-| casos_dengue          | Total de casos notificados de dengue no mês.                                          |
-| casos_chikungunya     | Total de casos notificados de chikungunya no mês.                                     |
-| casos_zika            | Total de casos notificados de zika no mês.                                            |
-| casos_totais          | Soma dengue + chikungunya + zika (campo opcional, mas útil).                          |
-| populacao_estimada    | População estimada do município (ex.: base 2022 do IBGE).                             |
-| chuva_mm              | Total de precipitação mensal (mm).                                                    |
-| umidade_media         | Média mensal de umidade relativa do ar (%).                                           |
-| temperatura_media     | Média mensal de temperatura (°C).                                                     |
-| indice_breve          | Índice de Breteau (criadouros positivos para Aedes por 100 imóveis).                  |
-| indice_predial        | Índice Predial (percentual de imóveis com larvas do Aedes).                           |
-| indice_recipient      | Índice de Recipientes (percentual de recipientes com larvas).                         |
+# Table Fields
+| **Improved Name**          | **Meaning / Description**                                                                          |
+| -------------------------- | -------------------------------------------------------------------------------------------------- |
+| **id**                     | Unique identifier for each row; primary key of the dataset.                                        |
+| **year**                   | Year of the observation (2000–2025).                                                               |
+| **month**                  | Month of the observation (1–12).                                                                   |
+| **municipality_code_ibge** | Official 7-digit IBGE municipality code (Brazil).                                                  |
+| **municipality_name**      | Name of the municipality corresponding to the IBGE code. May be stored in a separate lookup table. |
+| **dengue_cases**           | Number of reported dengue cases in the month.                                                      |
+| **chikungunya_cases**      | Number of reported chikungunya cases in the month.                                                 |
+| **zika_cases**             | Number of reported zika cases in the month.                                                        |
+| **total_cases**            | Sum of dengue + chikungunya + zika. Optional but useful.                                           |
+| **estimated_population**   | Estimated population of the municipality (e.g., IBGE 2022).                                        |
+| **rainfall_mm**            | Total monthly precipitation (millimeters).                                                         |
+| **average_humidity**       | Average monthly relative humidity (%).                                                             |
+| **average_temperature**    | Average monthly temperature (°C).                                                                  |
+| **breteau_index**          | Breteau Index (positive Aedes breeding sites per 100 inspected households).                        |
+| **house_index**            | House Index (percentage of inspected houses with Aedes larvae).                                    |
+| **container_index**        | Container Index (percentage of water containers with larvae).                                      |
 
 <hr>
 
-# Prefixo do Código de Município IBGE
+# IBGE municipality code prefix
 | UF | Código | Estado              |
 | -- | ------ | ------------------- |
 | 11 | RO     | Rondônia            |
