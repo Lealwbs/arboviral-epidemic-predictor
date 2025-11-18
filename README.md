@@ -3,8 +3,9 @@ Artificial intelligence-based data organization and modeling for arboviral epide
 
 <hr>
 
-# Table Fields
-| **Improved Name**          | **Meaning / Description**                                                                          |
+# Campos da tabela
+
+| **Name**                   | **Description**                                                                                    |
 | -------------------------- | -------------------------------------------------------------------------------------------------- |
 | **id**                     | Unique identifier for each row; primary key of the dataset.                                        |
 | **year**                   | Year of the observation (2000–2025).                                                               |
@@ -19,13 +20,10 @@ Artificial intelligence-based data organization and modeling for arboviral epide
 | **rainfall_mm**            | Total monthly precipitation (millimeters).                                                         |
 | **average_humidity**       | Average monthly relative humidity (%).                                                             |
 | **average_temperature**    | Average monthly temperature (°C).                                                                  |
-| **breteau_index**          | Breteau Index (positive Aedes breeding sites per 100 inspected households).                        |
-| **house_index**            | House Index (percentage of inspected houses with Aedes larvae).                                    |
-| **container_index**        | Container Index (percentage of water containers with larvae).                                      |
 
 <hr>
 
-# IBGE municipality code prefix
+# Prefixo código de municípios IBGE
 | UF | Código | Estado              |
 | -- | ------ | ------------------- |
 | 11 | RO     | Rondônia            |
@@ -55,3 +53,23 @@ Artificial intelligence-based data organization and modeling for arboviral epide
 | 51 | MT     | Mato Grosso         |
 | 52 | GO     | Goiás               |
 | 53 | DF     | Distrito Federal    |
+
+# Alerta
+
+| Elemento DC     | Valor na aplicação                                                                                            |
+| --------------- | ------------------------------------------------------------------------------------------------------------- |
+| **Title**       | "Alerta de Risco de Arbovirose – [Município], [Mês/Ano]"                                                      |
+| **Creator**     | Sistema de IA da Plataforma EpidemIO (modelo Random Forest)                                                   |
+| **Subject**     | Saúde pública; Arboviroses; Dengue; Chikungunya; Zika; Previsão de risco                                      |
+| **Description** | Alerta gerado automaticamente com base em modelos de IA, indicando probabilidade de surto no próximo período. |
+| **Publisher**   | Secretaria Municipal de Saúde / Plataforma EpidemIO                                                           |
+| **Contributor** | Equipe de modelagem, equipe de dados                                                                          |
+| **Date**        | Data de geração do alerta                                                                                     |
+| **Type**        | Dataset / Alerta preditivo                                                                                    |
+| **Format**      | JSON / Registro estruturado                                                                                   |
+| **Identifier**  | ID único do alerta (UUID)                                                                                     |
+| **Source**      | Tabela mestra integrada (SINAN + INMET + LIRAa + IBGE)                                                        |
+| **Language**    | pt-BR                                                                                                         |
+| **Relation**    | Relacionado ao município (tabela de municípios IBGE)                                                          |
+| **Coverage**    | Espaço: município; Tempo: mês/ano                                                                             |
+| **Rights**      | Uso institucional interno; dados abertos com restrições de privacidade                                        |
