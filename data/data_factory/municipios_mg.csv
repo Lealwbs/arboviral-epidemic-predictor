@@ -1,0 +1,9 @@
+codigo_ibge,nome,latitude,longitude,capital,codigo_uf,siafi_id,ddd,fuso_horario
+3106200,Belo Horizonte,-19.9102,-43.9266,1,31,4123,31,America/Sao_Paulo
+3118601,Contagem,-19.9321,-44.0539,0,31,4371,31,America/Sao_Paulo
+3127701,Governador Valadares,-18.8545,-41.9555,0,31,4553,33,America/Sao_Paulo
+3136702,Juiz de Fora,-21.7595,-43.3398,0,31,4733,32,America/Sao_Paulo
+3143302,Montes Claros,-16.7282,-43.8578,0,31,4865,38,America/Sao_Paulo
+3154606,Ribeirão das Neves,-19.7621,-44.0844,0,31,5091,31,America/Sao_Paulo
+3170107,Uberaba,-19.7472,-47.9381,0,31,5401,34,America/Sao_Paulo
+3170206,Uberlândia,-18.9141,-48.2749,0,31,5403,34,America/Sao_Paulo
