@@ -1,67 +1,81 @@
-class Alert:
-    def __init__(self, version: str =  "<\"1.0\" encoding=\"UTF-8\"?>", \
-                record: str = "<xmlns:dc=\"http://purl.org/dc/elements/1.1/\"", \
-                title: str = "", creator: str = "", subject: str = "", \
-                description: str = "", publisher: str = "", contributor: str = "", \
-                date: str = "", type: str = "", format: str = "", identifier: str = "", \
-                source: str = "", language: str = "", relation: str = "", \
-                coverage: str = "", rights: str = "" ):
-        self.version: str = version
-        self.record: str = record        
-        self.title: str = title
-        self.creator: str = creator
-        self.subject: str = subject
-        self.description: str = description
-        self.publisher: str = publisher
-        self.contributor: str = contributor
-        self.date: str = date
-        self.type: str = type
-        self.format: str = format
-        self.identifier: str = identifier
-        self.source: str = source
-        self.language: str = language
-        self.relation: str = relation
-        self.coverage: str = coverage
-        self.rights: str = rights
+from datetime import datetime, timezone
 
-    def __str__(self) -> str:
+
+class Alert:
+    def __init__(self, event: str = "Dengue", severity: str = "", certainly: str = "",    
+                 year: str = "", month: str = "", city_name: str = "", city_code: str = ""):
+        self.identifier = f"alert_{city_code}_{datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S')}"
+        self.sender = "Sistema de Alertas de Saúde Pública"
+        self.sent = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+        self.status = "Atual"
+        self.msgType = "Alerta"
+        self.scope = "Público"
+        self.language = "pt-BR"
+        self.category = "Arboviroses"
+        self.event = event
+        self.urgency = "None"
+        self.severity = severity
+        self.certainly = certainly
+        self.headline = "Alerta de Surto Arboviral"
+        self.description = "Indicação de potencial surto na região especificada."
+        self.year = year
+        self.month = month
+        self.city_name = city_name
+        self.city_code = city_code
+        self.version = "\"1.0\" encoding=\"UTF-8\""
+        self.namespace = "\"https://docs.oasis-open.org/emergency/cap/v1.2/CAP-v1.2-os.html\""
+
+    def __str__(self):
         return self.get_metadata()
 
     def get_metadata(self) -> str:
-        return f"""<?xml version={self.version}>\
-        \n<record xmlns:dc={self.record}>"\
-        \n    <dc:title>{self.title}</dc:title>\
-        \n    <dc:creator>{self.creator}</dc:creator>\
-        \n    <dc:subject>{self.subject}</dc:subject>\
-        \n    <dc:description>{self.description}</dc:description>\
-        \n    <dc:publisher>{self.publisher}</dc:publisher>\
-        \n    <dc:contributor>{self.contributor}</dc:contributor>\
-        \n    <dc:date>{self.date}</dc:date>\
-        \n    <dc:type>{self.type}</dc:type>\
-        \n    <dc:format>{self.format}</dc:format>\
-        \n    <dc:identifier>{self.identifier}</dc:identifier>\
-        \n    <dc:source>{self.identifier}</dc:source>\
-        \n    <dc:language>{self.language}</dc:language>\
-        \n    <dc:relation>{self.relation}</dc:relation>\
-        \n    <dc:coverage>{self.coverage}</dc:coverage>\
-        \n    <dc:rights>{self.rights}</dc:rights>\
-        \n</record>"""
-    
+        result: str = (
+        f"<?xml version={self.version}?>\n"
+        f"<alert xmlns={self.namespace}>\n"
+        f"    <identifier>{self.identifier}</identifier>\n"
+        f"    <sender>{self.sender}</sender>\n"
+        f"    <sent>{self.sent}</sent>\n"
+        f"    <status>{self.status}</status>\n"
+        f"    <msgType>{self.msgType}</msgType>\n"
+        f"    <scope>{self.scope}</scope>\n"
+        f"    <info>\n"
+        f"        <language>{self.language}</language>\n"
+        f"        <category>{self.category}</category>\n"
+        f"        <event>{self.event}</event>\n"
+        f"        <urgency>{self.urgency}</urgency>\n"
+        f"        <severity>{self.severity}</severity>\n"
+        f"        <certainty>{self.certainly}</certainty>\n"
+        f"        <headline>{self.headline}</headline>\n"
+        f"        <description>{self.description}</description>\n"
+        f"        <parameter>\n"
+        f"            <valueName>year</valueName>\n"
+        f"            <value>{self.year}</value>\n"
+        f"        </parameter>\n"
+        f"        <parameter>\n"
+        f"            <valueName>month</valueName>\n"
+        f"            <value>{self.month}</value>\n"
+        f"        </parameter>\n"
+        f"        <area>\n"
+        f"            <areaDesc>{self.city_name}</areaDesc>\n"
+        f"            <geocode>\n"
+        f"                <valueName>IBGE</valueName>\n"
+        f"                <value>{self.city_code}</value>\n"
+        f"            </geocode>\n"
+        f"        </area>\n"
+        f"    </info>\n"
+        f"</alert>")
+        return result
+
+
 if __name__ == "__main__":
-    alert = Alert(
-        title="Dengue Outbreak Alert",
-        creator="Arboviral Epidemic Predictor",
-        subject="Dengue Fever",
-        description="This alert indicates a potential dengue outbreak in the specified region.",
-        publisher="Health Department",
-        date="2024-06-01",
-        type="Alert",
-        format="XML",
-        identifier="alert-20240601-001",
-        source="Epidemiological Data",
-        language="en",
-        relation="Dengue Surveillance",
-        coverage="Region XYZ",
-        rights="All rights reserved."
+    A = Alert(
+        event="Dengue",
+        severity="Alto Risco",
+        certainly="100%",
+        year="2024",
+        month="06",
+        city_name="Belo Horizonte",
+        city_code="3106200"
     )
-    print(alert.get_metadata())
+
+    print(A)
