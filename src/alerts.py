@@ -2,8 +2,8 @@ from datetime import datetime, timezone
 
 
 class Alert:
-    def __init__(self, event: str = "Dengue", severity: str = "", certainly: str = "",    
-                 year: str = "", month: str = "", city_name: str = "", city_code: str = ""):
+    def __init__(self, event: str = "Dengue", severity: str = "", certainly: str = "", year: str = "",
+                 month: str = "", predicted_cases: str = "", city_name: str = "", city_code: str = ""):
         self.identifier = f"alert_{city_code}_{datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S')}"
         self.sender = "Sistema de Alertas de Saúde Pública"
         self.sent = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
@@ -20,6 +20,7 @@ class Alert:
         self.description = "Indicação de potencial surto na região especificada."
         self.year = year
         self.month = month
+        self.predicted_cases = predicted_cases
         self.city_name = city_name
         self.city_code = city_code
         self.version = "\"1.0\" encoding=\"UTF-8\""
@@ -55,6 +56,10 @@ class Alert:
         f"            <valueName>month</valueName>\n"
         f"            <value>{self.month}</value>\n"
         f"        </parameter>\n"
+        f"        <parameter>\n"
+        f"            <valueName>predictedCases</valueName>\n"
+        f"            <value>{self.predicted_cases}</value>\n"
+        f"        </parameter>\n"
         f"        <area>\n"
         f"            <areaDesc>{self.city_name}</areaDesc>\n"
         f"            <geocode>\n"
@@ -74,6 +79,7 @@ if __name__ == "__main__":
         certainly="100%",
         year="2024",
         month="06",
+        predicted_cases="750",
         city_name="Belo Horizonte",
         city_code="3106200"
     )
