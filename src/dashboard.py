@@ -180,6 +180,59 @@ with col_pred:
     except Exception as e:
         st.error(f"Erro inesperado: {e}")
 
+mes_prev += 1
+if mes_prev > 12:
+    mes_prev = 1
+    ano_prev += 1
+
+with col_pred:
+    st.info(f"Previsão via IA (Random Forest)")
+    st.caption(f"Simulando previsão para: **{mes_prev:02d}/{ano_prev}**")
+    
+    try:
+        
+        # integrando com o predictor.py
+        with st.spinner("Executando modelo preditivo..."):
+            # Instancia o Predictor com o caminho do CSV
+            modelo = Predictor(tablepath=DATA_PATH)
+            
+            # Chama o método predict_outbreak
+            # Isso treina o modelo em tempo real e retorna o objeto Alert preenchido
+            alerta_gerado = modelo.predict_outbreak(
+                city_code=codigo_ibge, 
+                year=str(ano_prev), 
+                month=str(mes_prev)
+            )
+
+        # Definir cor baseada na severidade retornada pelo modelo
+        cor_risco = "green"
+        if alerta_gerado.severity == "Moderate":
+            cor_risco = "orange"
+        elif alerta_gerado.severity == "Severe":
+            cor_risco = "red"
+
+        # Tradução visual para o Dashboard
+        traducao_risco = {
+            "Minor": "Baixo (Monitoramento)",
+            "Moderate": "Médio (Alerta)",
+            "Severe": "Alto Risco (Crítico)"
+        }
+        
+        texto_risco = traducao_risco.get(alerta_gerado.severity, "Desconhecido")
+
+        st.markdown(f"**Risco Calculado:**")
+        st.markdown(f"<h2 style='color:{cor_risco};'>{texto_risco}</h2>", unsafe_allow_html=True)
+        
+        st.metric("Casos Previstos", f"{alerta_gerado.predicted_cases}")
+        st.markdown(f"**Acurácia do Modelo:** {alerta_gerado.certainly}")
+
+    except ValueError as e:
+        # Captura erros do predictor (ex: cidade não mapeada ou data inválida)
+        st.error(f"Erro na Predição: {e}")
+        st.warning("Verifique se a cidade selecionada está no dicionário IBGE_CITY_CODES do predictor.py")
+    except Exception as e:
+        st.error(f"Erro inesperado: {e}")
+
 with col_xml:
     st.write(" **Metadados do Alerta (Formato XML para Interoperabilidade):**")
     
