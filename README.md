@@ -18,6 +18,11 @@ Apenas executar o comando no terminal:
 streamlit run src/dashboard.py
 ``` 
 
+Ou executar pelo windows:
+```bash
+python -m streamlit run src\dashboard.py
+```
+
 # Campos da tabela
 
 | **Name**                   | **Description**                                                                                    |
