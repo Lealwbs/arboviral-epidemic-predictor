@@ -10,7 +10,13 @@ Apenas executar o comando no terminal:
 ```bash
 pip install -r requirements.txt
 ``` 
+# Exibindo o Dashboard
 
+Apenas executar o comando no terminal:
+
+```bash
+streamlit run src/dashboard.py
+``` 
 
 # Campos da tabela
 
