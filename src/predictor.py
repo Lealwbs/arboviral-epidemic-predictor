@@ -8,40 +8,16 @@ import numpy as np
 
 
 IBGE_CITY_CODES: dict[str, str] = {
-    "1100205": "Porto Velho",
-    "1302603": "Manaus",
-    "1501402": "Belém",
-    "2111300": "São Luís",
-    "2211001": "Teresina",
-    "2304400": "Fortaleza",
-    "2408102": "Natal",
-    "2504009": "Campina Grande",
-    "2507507": "João Pessoa",
-    "2611606": "Recife",
-    "2704302": "Maceió",
-    "2800308": "Aracaju",
-    "2905701": "Camaçari",
-    "2910800": "Feira de Santana",
-    "2927408": "Salvador",
     "3106200": "Belo Horizonte",
+    "3118601": "Contagem",
+    "3127701": "Governador Valadares",
     "3136702": "Juiz de Fora",
     "3143302": "Montes Claros",
+    "3154606": "Ribeirão das Neves",
+    "3170107": "Uberaba",
     "3170206": "Uberlândia",
-    "3304557": "Rio de Janeiro",
-    "3304904": "São Gonçalo",
-    "3518800": "Guarulhos",
-    "3552205": "Sorocaba",
-    "4106902": "Curitiba",
-    "4113700": "Londrina",
-    "4115200": "Maringá",
-    "4205407": "Florianópolis",
-    "4305108": "Caxias do Sul",
-    "4314902": "Porto Alegre",
-    "5002704": "Campo Grande",
-    "5103403": "Cuiabá",
-    "5208707": "Goiânia",
-    "5300108": "Brasília",
 }
+
 
 class Predictor:
     def __init__(self, tablepath: str) -> None:
@@ -49,12 +25,13 @@ class Predictor:
         self.model = None
         self.scaler = None
 
-    def _load_data(self, city_code: str) -> pd.DataFrame:
+    def _load_data(self, city_code: str, min_year: int = 2020) -> pd.DataFrame:
         if city_code not in IBGE_CITY_CODES:
             raise ValueError("City code not found in IBGE city codes.")
         
         result: pd.DataFrame = pd.read_csv(self.tablepath, sep=";")
         result = result[result["municipality_code_ibge"] == int(city_code)]
+        result = result[result["year"] >= min_year]
         result = result.sort_values(by=["year", "month"])
         
         return result
@@ -235,22 +212,22 @@ class Predictor:
         # Classificação de severidade baseada nos dados históricos do município
         # Calcula percentis dos casos históricos
         historical_cases = df["dengue_cases"].dropna()
-        p50 = historical_cases.quantile(0.50) 
+        p65 = historical_cases.quantile(0.65) 
         p80 = historical_cases.quantile(0.80)  
         
         # Classificação adaptativa
         if predicted_cases > p80:
             severity = "Severe"  # Acima de 90% dos casos históricos
-        elif predicted_cases > p50:
+        elif predicted_cases > p65:
             severity = "Moderate"  # Entre 75% e 90%
         else:
             severity = "Minor"  # Abaixo de 75%
         
-        print(f"Thresholds calculados para {IBGE_CITY_CODES[city_code]}:")
-        print(f"  Minor: < {p50:.0f} casos (até 50º percentil)")
-        print(f"  Moderate: {p50:.0f} - {p80:.0f} casos (50º-80º percentil)")
-        print(f"  Severe: > {p80:.0f} casos (acima 80º percentil)")
-        print(f"  Previsão: {predicted_cases} casos → {severity}\n")
+        # print(f"Thresholds calculados para {IBGE_CITY_CODES[city_code]}:")
+        # print(f"  Minor: < {p50:.0f} casos (até 50º percentil)")
+        # print(f"  Moderate: {p50:.0f} - {p80:.0f} casos (50º-80º percentil)")
+        # print(f"  Severe: > {p80:.0f} casos (acima 80º percentil)")
+        # print(f"  Previsão: {predicted_cases} casos → {severity}\n")
         
         # Criar alerta
         alert = Alert(
