@@ -43,7 +43,6 @@ IBGE_CITY_CODES: dict[str, str] = {
     "5300108": "Brasília",
 }
 
-
 class Predictor:
     def __init__(self, tablepath: str) -> None:
         self.tablepath = tablepath
@@ -233,13 +232,25 @@ class Predictor:
         # Garantir que não seja negativo
         predicted_cases = max(0, predicted_cases)
         
-        # Classificação de severidade (ajustado para realidade de Belo Horizonte)
-        if predicted_cases > 5000:
-            severity = "Severe"
-        elif predicted_cases > 1000:
-            severity = "Moderate"
+        # Classificação de severidade baseada nos dados históricos do município
+        # Calcula percentis dos casos históricos
+        historical_cases = df["dengue_cases"].dropna()
+        p50 = historical_cases.quantile(0.50) 
+        p80 = historical_cases.quantile(0.80)  
+        
+        # Classificação adaptativa
+        if predicted_cases > p80:
+            severity = "Severe"  # Acima de 90% dos casos históricos
+        elif predicted_cases > p50:
+            severity = "Moderate"  # Entre 75% e 90%
         else:
-            severity = "Minor"
+            severity = "Minor"  # Abaixo de 75%
+        
+        print(f"Thresholds calculados para {IBGE_CITY_CODES[city_code]}:")
+        print(f"  Minor: < {p50:.0f} casos (até 50º percentil)")
+        print(f"  Moderate: {p50:.0f} - {p80:.0f} casos (50º-80º percentil)")
+        print(f"  Severe: > {p80:.0f} casos (acima 80º percentil)")
+        print(f"  Previsão: {predicted_cases} casos → {severity}\n")
         
         # Criar alerta
         alert = Alert(
