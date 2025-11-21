@@ -33,9 +33,6 @@ python -m streamlit run src\dashboard.py
 | **municipality_code_ibge** | Official 7-digit IBGE municipality code (Brazil).                                                  |
 | **municipality_name**      | Name of the municipality corresponding to the IBGE code. May be stored in a separate lookup table. |
 | **dengue_cases**           | Number of reported dengue cases in the month.                                                      |
-| **chikungunya_cases**      | Number of reported chikungunya cases in the month.                                                 |
-| **zika_cases**             | Number of reported zika cases in the month.                                                        |
-| **total_cases**            | Sum of dengue + chikungunya + zika. Optional but useful.                                           |
 | **estimated_population**   | Estimated population of the municipality (e.g., IBGE 2022).                                        |
 | **rainfall_mm**            | Total monthly precipitation (millimeters).                                                         |
 | **average_humidity**       | Average monthly relative humidity (%).                                                             |
@@ -73,23 +70,3 @@ python -m streamlit run src\dashboard.py
 | 51 | MT     | Mato Grosso         |
 | 52 | GO     | Goiás               |
 | 53 | DF     | Distrito Federal    |
-
-# Alerta
-
-| Elemento DC     | Valor na aplicação                                                                                            |
-| --------------- | ------------------------------------------------------------------------------------------------------------- |
-| **Title**       | "Alerta de Risco de Arbovirose – [Município], [Mês/Ano]"                                                      |
-| **Creator**     | Sistema de IA da Plataforma EpidemIO (modelo Random Forest)                                                   |
-| **Subject**     | Saúde pública; Arboviroses; Dengue; Chikungunya; Zika; Previsão de risco                                      |
-| **Description** | Alerta gerado automaticamente com base em modelos de IA, indicando probabilidade de surto no próximo período. |
-| **Publisher**   | Secretaria Municipal de Saúde / Plataforma EpidemIO                                                           |
-| **Contributor** | Equipe de modelagem, equipe de dados                                                                          |
-| **Date**        | Data de geração do alerta                                                                                     |
-| **Type**        | Dataset / Alerta preditivo                                                                                    |
-| **Format**      | JSON / Registro estruturado                                                                                   |
-| **Identifier**  | ID único do alerta (UUID)                                                                                     |
-| **Source**      | Tabela mestra integrada (SINAN + INMET + LIRAa + IBGE)                                                        |
-| **Language**    | pt-BR                                                                                                         |
-| **Relation**    | Relacionado ao município (tabela de municípios IBGE)                                                          |
-| **Coverage**    | Espaço: município; Tempo: mês/ano                                                                             |
-| **Rights**      | Uso institucional interno; dados abertos com restrições de privacidade                                        |
