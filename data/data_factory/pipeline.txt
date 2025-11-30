@@ -1,0 +1,18 @@
+ORDEM DE EXECUÇÃO DO PIPELINE
+load_cities.py -> carrega as cidades do municipios.csv pego do git(ibge)
+
+mg_generator.py -> seleciona somentes cidades de minas, pode virar uma função de filto
+    que aceita qualquer cidade  def gera_csv_da_cidade()
+
+city_weather_gen.py -> junta os climas e as cidades num csv somente 
+
+cases.py -> gera os casos por cidade
+
+final_generator -> mescla as tabelas de casos gerados por ID com        
+                    a tabela de municipios e climas
+
+
+
+ERROS: 
+    população incorreta de acordo com os anos
+    CAUSA: provavelmente estou chamando a API errado ( ref ou parametros ou tempo)
