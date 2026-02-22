@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<alert xmlns="https://docs.oasis-open.org/emergency/cap/v1.2/CAP-v1.2-os.html">
+    <identifier>alert_3106200_20251119T025451</identifier>
+    <sender>Sistema de Alertas de Saúde Pública</sender>
+    <sent>2025-11-19T02:54:51Z</sent>
+    <status>Atual</status>
+    <msgType>Alerta</msgType>
+    <scope>Público</scope>
+    <info>
+        <language>pt-BR</language>
+        <category>Arboviroses</category>
+        <event>Dengue</event>
+        <urgency>None</urgency>
+        <severity>Alto Risco</severity>
+        <certainty>100%</certainty>
+        <headline>Alerta de Surto Arboviral</headline>
+        <description>Indicação de potencial surto na região especificada.</description>
+        <parameter>
+            <valueName>year</valueName>
+            <value>2024</value>
+        </parameter>
+        <parameter>
+            <valueName>month</valueName>
+            <value>06</value>
+        </parameter>
+        <area>
+            <areaDesc>Belo Horizonte</areaDesc>
+            <geocode>
+                <valueName>IBGE</valueName>
+                <value>3106200</value>
+            </geocode>
+        </area>
+    </info>
+</alert>
